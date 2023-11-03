@@ -1,0 +1,19 @@
+'---
+- name: Kills the specified job and root jobnet that are being executed
+  hosts: local
+  tasks:
+    - name: Send kill request
+      uri:
+        url: "https://{{ ajs_domain }}/objects/statuses/{{ ajs_unit_name }}:{{ ajs_exec_id }}/action/kill/invoke HTTP/1.1"
+        headers:
+          Content-Type: application/json
+          X-AJS-Authorization: "{{ ajs_authorization }}"
+        body_format: json
+        body:
+          parameters: 
+            manager: "{{ ajs_manager }}"
+            serviceName: "{{ ajs_service_name }}"
+        status_code: 200
+        method: POST
+
+'
